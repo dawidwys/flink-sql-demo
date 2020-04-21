@@ -19,19 +19,19 @@ services:
       METASTORE_PORT: 9083
     volumes:
       - ./flinksql-init:/opt/sql-client/init
-  data-provider:
-    image: fhueske/flink-sql-demo-data:1
-    build: ./data-image
-    environment:
-      - MC_HOST_minio=http://sql-demo:demo-sql@minio:9000
-      - KAFKA_HOST=kafka:9092
-      - SPEEDUP=10.0
-    volumes:
-      - ./data:/opt/data/kafka
+#  data-provider:
+#    image: fhueske/flink-sql-demo-data:1
+#    build: ./data-image
+#    environment:
+#      - MC_HOST_minio=http://sql-demo:demo-sql@minio:9000
+#      - KAFKA_HOST=kafka:9092
+#      - SPEEDUP=10.0
+#    volumes:
+#      - ./data:/opt/data/kafka
 #      -./data:/opt/data/minio  # all files located in /opt/data/minio are copied into Minio
-    depends_on:
-      - minio
-      - kafka
+#    depends_on:
+#      - minio
+#      - kafka
   jobmanager:
     image: fhueske/flink-s3:1.10.0-scala_2.11
     build: ./flink-image
@@ -103,4 +103,15 @@ services:
     volumes:
       - ./mysql-init:/docker-entrypoint-initdb.d
       - ./data:/data
-
+  zeppelin:
+    image: dawidwys/zeppelin:0.9.0-flink-1.10_2.11
+    build: ./zeppelin-image
+    links:
+      - jobmanager:jobmanager
+      - metastore:metastore
+    expose:
+      - "8080"
+      - "18086"
+    ports:
+      - "8080:8086"
+      - "18086:18086"

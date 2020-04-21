@@ -32,3 +32,12 @@ RUN mkdir /opt/flink/plugins/s3; \
     echo "fs.s3a.path.style.access: true" >> /opt/flink/conf/flink-conf.yaml; \
     sed -i -e 's/taskmanager.memory.process.size: 1568m/taskmanager.memory.process.size: 1728m/g' /opt/flink/conf/flink-conf.yaml; \
     echo "taskmanager.memory.jvm-metaspace.size: 256m" >> /opt/flink/conf/flink-conf.yaml;
+
+RUN wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-hive_${SCALA_VERSION}/${FLINK_VERSION}/flink-connector-hive_${SCALA_VERSION}-${FLINK_VERSION}.jar -O /opt/flink/lib/flink-connector-hive_${SCALA_VERSION}-${FLINK_VERSION}.jar; \
+    wget https://repo1.maven.org/maven2/org/apache/flink/flink-csv/${FLINK_VERSION}/flink-csv-${FLINK_VERSION}.jar -O /opt/flink/lib/flink-csv-${FLINK_VERSION}.jar; \
+    wget https://repo1.maven.org/maven2/org/apache/hive/hive-exec/2.3.6/hive-exec-2.3.6.jar -O /opt/flink/lib/hive-exec-2.3.6.jar; \
+    wget https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka_${SCALA_VERSION}/${FLINK_VERSION}/flink-sql-connector-kafka_${SCALA_VERSION}-${FLINK_VERSION}.jar -O /opt/flink/lib/flink-sql-connector-kafka_${SCALA_VERSION}-${FLINK_VERSION}.jar; \
+    wget https://repo1.maven.org/maven2/org/apache/flink/flink-hadoop-compatibility_${SCALA_VERSION}/${FLINK_VERSION}/flink-hadoop-compatibility_${SCALA_VERSION}-${FLINK_VERSION}.jar -O /opt/flink/lib/flink-hadoop-compatibility_${SCALA_VERSION}-${FLINK_VERSION}.jar; \
+    wget https://repo1.maven.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.8.3-10.0/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar -O /opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar; \
+    wget https://repo.maven.apache.org/maven2/org/apache/flink/flink-jdbc_${SCALA_VERSION}/${FLINK_VERSION}/flink-jdbc_${SCALA_VERSION}-${FLINK_VERSION}.jar -O /opt/flink/lib/flink-jdbc_${SCALA_VERSION}-${FLINK_VERSION}.jar ; \
+    wget https://repo.maven.apache.org/maven2/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar -O /opt/flink/lib/mysql-connector-java-8.0.19.jar;
